@@ -2,6 +2,15 @@
 const express = require('express');
 //INITIALIZE VARIABLE APP W/ EXPRESS
 const app = express();
+//GET REQUEST=go to webpage '/'(ROUTE)
+// a = request
+// b = response
+//FUNCTION
+app.get('/', (a, b) => {
+    //.send = send response to browser
+    b.send('<h1>ITS WORKING!</h1>')
+
+});
 //SET PORT NUMBER
 //(process.env.PORT=want to look at evironment variable called PORT)
 //(if server port not available will run on 5000)
