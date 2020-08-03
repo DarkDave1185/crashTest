@@ -19,4 +19,4 @@ const members = [{
 ];
 //takes this file and makes content usable as variables
 //needs (const members = require('./Members)) on index.js
-module.exports = members
+module.exports = members;

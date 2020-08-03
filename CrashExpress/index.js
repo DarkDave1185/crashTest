@@ -2,8 +2,12 @@
 const express = require('express');
 //CALL IN PATH(to handle file paths)
 const path = require('path');
-//CALL IN Member.js(makes variable members array available)
 const members = require('./Members');
+//unneeded after api routes moved
+//--const router = require('./routes/api/members');
+//CALL IN Member.js(makes variable members array available)
+//moved to members route file
+//--const members = require('./Members');
 //INITIALIZE VARIABLE APP W/ EXPRESS
 const app = express();
 
@@ -19,6 +23,13 @@ const app = express();
 // path.join = combine informaiton into directory name: public/index.html
 //--b.sendFile(path.join(__dirname, 'public', 'index.html'))
 //--});
+
+//**BODY PARSE MIDDLEWARE**//
+//handle json data
+app.use(express.json());
+//handle url encoded data
+app.use(express.urlencoded({ extended: false }));
+
 //FUNCTION w/ STATIC FOLDER
 // .use(middleware) = defines what path to use for webpage
 // express.static(middleware) = sets common location to get webpage
@@ -45,7 +56,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 //         status: "dead"
 //     },
 // ];
+
+//MEMEBERS API ROUTES//
+//this consolidates router.get in members.js
+app.use(`/api/members`, require(`./routes/api/members`));
+
 //**ROUTES - API**//
+//**Routes moved to routes/api/members.js to EXPORT**//
 //**GETS ALL MEMBERS**//
 //GET REQUEST=go to webpage '/' and return
 // c = request
@@ -55,27 +72,52 @@ app.use(express.static(path.join(__dirname, 'public')));
 //--d.json(members);
 //--});
 //code cleaned up(no need for curly bracket since => funtion and 1 response(members))
-app.get('/api/members', (c, d) => d.json(members));
+//--app.get('/api/members', (c, d) => d.json(members));
 //**ROUTES - API**//
 //**GETS SINGLE MEMBER**//
 //code cleaned up(no need for curly bracket since => funtion and 1 response(members))
 // :id = section in 
-app.get('/api/members/:id', (c, d) => {
-    //--d.send(c.params.id);
-    //some method-check to see if member exsists (true or false)
-    const found = members.some(member => member.id === parseInt(c.params.id));
-    //if member is found respond with JSON
-    //will respond 200 in POSTMAN
-    if (found) {
-        d.json(members.filter(member => member.id === parseInt(c.params.id)));
-    } else {
-        //if member is not found respond with JSON msg
-        //change page status to BAD REQUEST
-        d.status(400).json({ msg: `Member: ${c.params.id} Request Invalid` })
+//--app.get('/api/members/:id', (c, d) => {
+//--d.send(c.params.id);
+//some method-check to see if member exsists (true or false)
+//--const found = members.some(member => member.id === parseInt(c.params.id));
+//if member is found respond with JSON
+//will respond 200 in POSTMAN
+//--if (found) {
+//--d.json(members.filter(member => member.id === parseInt(c.params.id)));
+//--} else {
+//if member is not found respond with JSON msg
+//change page status to BAD REQUEST
+//--d.status(400).json({ msg: `Member: ${c.params.id} Request Invalid` })
 
-    }
+//--}
 
-});
+//--});
+
+//**CREATE MEMBER**(checkPOSTMAN for good post)//
+//--router.post(`/`, (c, d) => {
+//--d.send(c.body);
+//--});
+
+//**CREATE MEMBER**//
+//--router.post(`/`, (c, d) => {
+//--const newmemeber = {
+//uuid.v4 = generates random id nuber for member
+//--id: uuid.v4(),
+//--name: c.bony.name,
+//--age: c.body.age,
+//status set to active for every member added
+//--status: `active`
+//--}
+//if name or age not filled in will send msg
+//-- if(!newMember.name || !newMemeber.age){
+//change page status to 400
+//page display msg
+//--d.status(400).json({ msg: `Name and Age are required` })
+//--}
+//--members.push(newMember);
+//--});
+
 //SET PORT NUMBER
 //(process.env.PORT=want to look at evironment variable called PORT)
 //(if server port not available will run on 5000)
