@@ -76,7 +76,6 @@ app.get('/api/members/:id', (c, d) => {
     }
 
 });
-
 //SET PORT NUMBER
 //(process.env.PORT=want to look at evironment variable called PORT)
 //(if server port not available will run on 5000)
