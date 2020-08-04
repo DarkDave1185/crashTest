@@ -61,7 +61,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //this consolidates router.get in members.js
 app.use(`/api/members`, require(`./routes/api/members`));
 
-//**ROUTES - API**//
+//**ROUTES - API**//(moved to member.js)
 //**Routes moved to routes/api/members.js to EXPORT**//
 //**GETS ALL MEMBERS**//
 //GET REQUEST=go to webpage '/' and return
@@ -73,7 +73,8 @@ app.use(`/api/members`, require(`./routes/api/members`));
 //--});
 //code cleaned up(no need for curly bracket since => funtion and 1 response(members))
 //--app.get('/api/members', (c, d) => d.json(members));
-//**ROUTES - API**//
+
+//**ROUTES - API**//(moved to member.js)
 //**GETS SINGLE MEMBER**//
 //code cleaned up(no need for curly bracket since => funtion and 1 response(members))
 // :id = section in 
@@ -94,12 +95,12 @@ app.use(`/api/members`, require(`./routes/api/members`));
 
 //--});
 
-//**CREATE MEMBER**(checkPOSTMAN for good post)//
+//**CREATE MEMBER**(checkPOSTMAN for good post)//(moved to member.js)
 //--router.post(`/`, (c, d) => {
 //--d.send(c.body);
 //--});
 
-//**CREATE MEMBER**//
+//**CREATE MEMBER**//(moved to member.js)
 //--router.post(`/`, (c, d) => {
 //--const newmemeber = {
 //uuid.v4 = generates random id nuber for member
@@ -116,6 +117,29 @@ app.use(`/api/members`, require(`./routes/api/members`));
 //--d.status(400).json({ msg: `Name and Age are required` })
 //--}
 //--members.push(newMember);
+//--});
+
+//**UPDATE MEMBER**//
+//similar to get single member but a PUT request
+//makes a put request to the member id
+//--router.get('/:id', (c, d) => {
+//check if member is found
+//--const found = members.some(member => member.id === parseInt(c.params.id));
+//--if (found) {
+//--const updatedMember = c.body;
+//check members array 
+//--members.forEach(member=>{
+//--if(member.id === parseInt(c.body.id)){
+//check name and age if changed then update
+//--member.name = updatedMember.name ? updatedMember.name : member.name;
+//--member.age = updatedMember.age ? updatedMember.age : member.age;
+//send msg if member information has changed
+//--d.json({msg: `Member Information Updated`, member:});
+//--}
+//--});
+//--} else {
+//--d.status(400).json({ msg: `Member: ${c.params.id} Request Invalid` })
+//--}
 //--});
 
 //SET PORT NUMBER

@@ -31,4 +31,23 @@ router.post(`/`, (c, d) => {
     members.push(newMember);
     d.json(members);
 });
+
+//**UPDATE MEMBER**//
+router.put('/:id', (c, d) => {
+    const found = members.some(member => member.id === parseInt(c.params.id));
+    if (found) {
+        const updatedMember = c.body;
+        members.forEach(member => {
+            if (member.id === parseInt(c.body.id)) {
+                member.name = updatedMember.name ? updatedMember.name : member.name;
+                member.age = updatedMember.age ? updatedMember.age : member.age;
+                d.json({ msg: `Member Information Updated`, member: member });
+            }
+        });
+    } else {
+        d.status(400).json({ msg: `Member: ${c.params.id} Request Invalid` })
+    }
+    d.end();
+});
+
 module.exports = router;
