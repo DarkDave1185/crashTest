@@ -26,11 +26,20 @@ const app = express();
 //--b.sendFile(path.join(__dirname, 'public', 'index.html'))
 //--});
 
+//**MIDDLEWARE**//
+//**HANDLEBARS MIDDLEWARE**//
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
 //**BODY PARSE MIDDLEWARE**//
 //handle json data
 app.use(express.json());
 //handle url encoded data
 app.use(express.urlencoded({ extended: false }));
+
+//**HANDLEBARS ROUTE**//
+//HomePage Route//
+app.get(`/`, (c, d) => d.render(`index`));
 
 //FUNCTION w/ STATIC FOLDER
 // .use(middleware) = defines what path to use for webpage
