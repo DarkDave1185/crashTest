@@ -4,7 +4,7 @@ const uuid = require(`uuid`);
 const router = express.Router();
 const members = require("../../Members");
 
-//**GETS ALL MEMBERS**//
+//**GETS ALL MEMBERS**// 
 router.get('/', (c, d) => d.json(members));
 
 //**GETS SINGLE MEMBER**//
@@ -48,6 +48,16 @@ router.put('/:id', (c, d) => {
         d.status(400).json({ msg: `Member: ${c.params.id} Request Invalid` })
     }
     d.end();
+});
+
+//**DELETE MEMBER**//
+router.delete('/:id', (c, d) => {
+    const found = members.some(member => member.id === parseInt(c.params.id));
+    if (found) {
+        d.json({ msg: `Member Deleted!`, members: members.filter(member => member.id !== parseInt(c.params.id)) });
+    } else {
+        d.status(400).json({ msg: `Member: ${c.params.id} Request Invalid` })
+    }
 });
 
 module.exports = router;

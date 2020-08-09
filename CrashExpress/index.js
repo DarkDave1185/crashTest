@@ -1,8 +1,10 @@
 //CALL IN EXPRESS
 const express = require('express');
+const exphbs = require(`express-handlebars`);
 //CALL IN PATH(to handle file paths)
 const path = require('path');
-const members = require('./Members');
+//unneeded after api routes moved
+//--const members = require('./Members');
 //unneeded after api routes moved
 //--const router = require('./routes/api/members');
 //CALL IN Member.js(makes variable members array available)
