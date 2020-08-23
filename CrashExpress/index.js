@@ -4,7 +4,8 @@ const exphbs = require(`express-handlebars`);
 //CALL IN PATH(to handle file paths)
 const path = require('path');
 //unneeded after api routes moved
-//--const members = require('./Members');
+//brought back to refernce info on members page
+const members = require('./Members');
 //unneeded after api routes moved
 //--const router = require('./routes/api/members');
 //CALL IN Member.js(makes variable members array available)
@@ -28,6 +29,7 @@ const app = express();
 
 //**MIDDLEWARE**//
 //**HANDLEBARS MIDDLEWARE**//
+//remember to change `.hbs` to handlebars  see docs
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
@@ -39,13 +41,17 @@ app.use(express.urlencoded({ extended: false }));
 
 //**HANDLEBARS ROUTE**//
 //HomePage Route//
-app.get(`/`, (c, d) => d.render(`index`));
+app.get(`/`, (c, d) => d.render(`index`, {
+    title: `ServerApp Test`,
+    members
+}));
 
 //FUNCTION w/ STATIC FOLDER
 // .use(middleware) = defines what path to use for webpage
 // express.static(middleware) = sets common location to get webpage
 // path.join = combine informaiton into directory name: public/index.html
-app.use(express.static(path.join(__dirname, 'public')));
+//route syntax not needed when using handlebars
+//--app.use(express.static(path.join(__dirname, 'public')));
 //hard coded array to show JSON return
 //**Array moved to Members.js to try EXPORT**//
 // const members = [{
